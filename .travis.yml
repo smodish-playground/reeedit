@@ -1,4 +1,13 @@
-language: javascript
-install: npm install
+sudo: false
+
+language: node_js
+
+node_js:
+  - 16.13.0
+
 script:
-  - npm run test
+  - npm run lint
+  - npm run test:coveralls
+
+notifications:
+  email: false
