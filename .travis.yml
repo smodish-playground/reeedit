@@ -3,7 +3,7 @@ sudo: false
 language: node_js
 
 node_js:
-  - 16.13.0
+  - 16
 
 script:
   - npm run lint
