@@ -1,14 +1,31 @@
-import { HStack, Button, Heading, useColorMode, Avatar } from '@chakra-ui/react'
+import {
+  HStack,
+  Button,
+  Heading,
+  useColorMode,
+  Avatar,
+  Flex,
+  useColorModeValue,
+} from '@chakra-ui/react'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 
 const Navbar = () => {
   const iconSize = '5'
   const { colorMode, toggleColorMode } = useColorMode()
 
+  const bg = useColorModeValue('blackAlpha.800', 'blackAlpha.400')
+
   return (
-    <HStack as="nav" justifyContent="space-between" spacing="20">
+    <Flex
+      as="header"
+      justifyContent="space-between"
+      alignItems="center"
+      bg={bg}
+      h="100%"
+      px="5"
+    >
       <Button variant="ghost">
-        <Heading color={'gray.200'}>Reeedit</Heading>
+        <Heading color={'whiteAlpha.800'}>Reeedit</Heading>
       </Button>
       <HStack justifyContent="space-evenly" alignItems="center" spacing="6">
         {colorMode === 'light' ? (
@@ -28,7 +45,7 @@ const Navbar = () => {
         )}
         <Avatar size="sm" />
       </HStack>
-    </HStack>
+    </Flex>
   )
 }
 

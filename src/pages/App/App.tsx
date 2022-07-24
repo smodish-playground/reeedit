@@ -1,33 +1,33 @@
-import { Container, Box, Grid, GridItem, Flex } from '@chakra-ui/react'
+import { Container, Grid, GridItem } from '@chakra-ui/react'
 import Navbar from '../../components/Navbar/Navbar'
-
-const thisYear = new Date().getFullYear()
+import Posts from '../../components/Posts/Posts'
+import Topics from '../../components/Topics/Topics'
+import PostDetail from '../../components/PostDetail/PostDetail'
+import Footer from '../../components/Footer/Footer'
 
 function App() {
   return (
-    <Container
-      maxW="container.xl"
-      bgGradient="linear(to-tr, blue.700, blue.400)"
-      py={10}
-    >
+    <Container maxW="container.xl">
       <Grid
         templateAreas={`"header header" "topics main" "footer footer"`}
         gridTemplateRows={'100px 1fr 50px'}
         gridTemplateColumns={'150px 1fr'}
-        h="full"
+        minH="100vh"
         gap="1"
       >
         <GridItem area={'header'}>
           <Navbar />
         </GridItem>
-        <GridItem area={'topics'}>Topics</GridItem>
+        <GridItem area={'topics'}>
+          <Topics />
+        </GridItem>
         <GridItem area={'main'}>
-          <Box as="main">Main</Box>
+          {/* Router goes here */}
+          <Posts />
+          <PostDetail />
         </GridItem>
         <GridItem area={'footer'}>
-          <Flex justifyContent="center">
-            <footer>©{thisYear}</footer>
-          </Flex>
+          <Footer />
         </GridItem>
       </Grid>
     </Container>
