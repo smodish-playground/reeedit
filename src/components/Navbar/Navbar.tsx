@@ -13,7 +13,7 @@ const Navbar = () => {
   const iconSize = '5'
   const { colorMode, toggleColorMode } = useColorMode()
 
-  const bg = useColorModeValue('blackAlpha.800', 'blackAlpha.400')
+  const bg = useColorModeValue('blackAlpha.800', 'blackAlpha.500')
 
   return (
     <Flex

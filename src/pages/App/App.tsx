@@ -9,11 +9,11 @@ function App() {
   return (
     <Container maxW="container.xl">
       <Grid
-        templateAreas={`"header header" "topics main" "footer footer"`}
-        gridTemplateRows={'100px 1fr 50px'}
-        gridTemplateColumns={'150px 1fr'}
+        templateAreas={`"header header header" "topics main sidebar" "footer footer footer"`}
+        gridTemplateRows={'50px 1fr 50px'}
+        gridTemplateColumns={'150px 1fr 150px'}
         minH="100vh"
-        gap="1"
+        gap="5"
       >
         <GridItem area={'header'}>
           <Navbar />
