@@ -11,11 +11,13 @@ jobs:
       - node/install-packages
       - run: sudo npm install -g npm@latest
       - run: npm run test
+  deploy:
+    executor: node/default
+    steps:
+      - run: npm run deploy
 
 workflows:
-  test_my_app:
+  test_my_app_then_deploy:
     jobs:
       - test
-      - run:
-          command: npm run deploy
-          name: Deploy to GHPages
+      - deploy
