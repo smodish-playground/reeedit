@@ -4,13 +4,6 @@ orbs:
   node: circleci/node@5.0.2
 
 jobs:
-  test:
-    executor: node/default
-    steps:
-      - checkout
-      - node/install-packages
-      - run: sudo npm install -g npm@latest
-      - run: npm run test
   deploy:
     executor: node/default
     steps:
@@ -19,5 +12,5 @@ jobs:
 workflows:
   test_my_app_then_deploy:
     jobs:
-      - test
+      - node/test
       - deploy
