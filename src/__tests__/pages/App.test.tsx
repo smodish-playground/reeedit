@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import { ChakraProvider } from '@chakra-ui/react'
 
-import App from './App'
+import App from '../../pages/App'
 
 it('renders without crashing', () => {
   render(
