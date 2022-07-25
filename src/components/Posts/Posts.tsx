@@ -1,4 +1,4 @@
-import { Box, VStack } from '@chakra-ui/react'
+import { VStack } from '@chakra-ui/react'
 import React from 'react'
 import Post from './Post/Post'
 import { IPost } from './Post/Post.interface'
