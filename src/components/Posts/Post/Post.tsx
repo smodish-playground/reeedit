@@ -1,5 +1,4 @@
 import React from 'react'
-// import { IPost } from './Post.interface'
 
 import {
   Box,
@@ -14,18 +13,10 @@ import {
 } from '@chakra-ui/react'
 import { IPost } from './Post.interface'
 
-const Post = ({
-  postTitle,
-  topics,
-  postBody,
-  id,
-  createdBy,
-  createdAt,
-}: IPost) => {
-  // console.log(id, postTitle, topics, postBody, createdBy, createdAt)
-
+const Post = (props: IPost) => {
   return (
     <VStack
+      as="article"
       align="left"
       rounded="md"
       p="5"
@@ -34,23 +25,23 @@ const Post = ({
       borderColor="gray.200"
     >
       <Heading as="h2" size="md">
-        {postTitle}
+        {props.title}
       </Heading>
       <Box>
         <Tag size="md" borderRadius="full">
-          <Avatar name={createdBy} size="xs" mr="2" />
-          <TagLabel>{createdBy}</TagLabel>
+          <Avatar name={props.createdBy} size="xs" mr="2" />
+          <TagLabel>{props.createdBy}</TagLabel>
         </Tag>
         <Tag size="md" borderRadius="full">
-          <TagLabel>{createdAt}</TagLabel>
+          <TagLabel>{props.createdAt}</TagLabel>
         </Tag>
       </Box>
       <Text noOfLines={3} size="md">
-        {postBody}
+        {props.content}
       </Text>
       <Box>
         <ButtonGroup>
-          {topics.map((topic) => (
+          {props.topics.map((topic) => (
             <Button size="xs" colorScheme="black" key={topic} variant="outline">
               {topic}
             </Button>
