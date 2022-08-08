@@ -7,10 +7,10 @@ import {
   Text,
   Button,
   ButtonGroup,
-  Avatar,
   TagLabel,
   Tag,
 } from '@chakra-ui/react'
+import PostAuthor from '../PostAuthor/PostAuthor'
 import { IPost } from './Post.interface'
 
 const Post = (props: IPost) => {
@@ -28,10 +28,7 @@ const Post = (props: IPost) => {
         {props.title}
       </Heading>
       <Box>
-        <Tag size="md" borderRadius="full">
-          <Avatar name={props.createdBy} size="xs" mr="2" />
-          <TagLabel>{props.createdBy}</TagLabel>
-        </Tag>
+        <PostAuthor userId={props.createdBy} />
         <Tag size="md" borderRadius="full">
           <TagLabel>{props.createdAt}</TagLabel>
         </Tag>

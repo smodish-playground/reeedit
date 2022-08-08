@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit'
 // import type { PayloadAction } from '@reduxjs/toolkit'
-import type { IPost } from './Post/Post.interface'
+import type { IPost } from '../../components/Post/Post.interface'
 
 import data from '../../mockdb/db'
 
@@ -10,9 +10,23 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    postAdded: (state, action) => {
-      // add a post to state
-      state.push(action.payload)
+    postAdded: {
+      prepare: (title: string, content: string, userId: string) => {
+        return {
+          payload: {
+            id: nanoid(),
+            title,
+            content,
+            topics: ['from redux prepare'],
+            createdAt: Date.now(),
+            createdBy: userId,
+          },
+        }
+      },
+      reducer: (state, action: PayloadAction<IPost>) => {
+        // add a post to state
+        state.push(action.payload)
+      },
     },
     setPosts: (state) => {
       // fetch posts

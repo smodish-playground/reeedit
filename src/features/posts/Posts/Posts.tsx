@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { selectAllPosts } from './postsSlice'
-import Post from './Post/Post'
-import PostForm from '../PostForm/PostForm'
+import { selectAllPosts } from '../postsSlice'
+import Post from '../../../components/Post/Post'
+import PostForm from '../../../components/PostForm/PostForm'
 
 import { VStack } from '@chakra-ui/react'
 
