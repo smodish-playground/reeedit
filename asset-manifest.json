@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/reeedit/static/js/main.e9d46cba.js",
+    "main.js": "/reeedit/static/js/main.302ab9b8.js",
     "index.html": "/reeedit/index.html",
-    "main.e9d46cba.js.map": "/reeedit/static/js/main.e9d46cba.js.map"
+    "main.302ab9b8.js.map": "/reeedit/static/js/main.302ab9b8.js.map"
   },
   "entrypoints": [
-    "static/js/main.e9d46cba.js"
+    "static/js/main.302ab9b8.js"
   ]
 }
