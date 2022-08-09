@@ -1,4 +1,5 @@
-import { render } from '@testing-library/react'
+// import { render } from '@testing-library/react'
+import { renderWithProviders } from '../../test-utils'
 import Post from './Post'
 import { IPost } from './Post.interface'
 
@@ -13,5 +14,5 @@ it('renders without crashing', () => {
     createdBy: 'userId1',
   }
 
-  render(<Post {...mockPost} />)
+  renderWithProviders(<Post {...mockPost} />)
 })

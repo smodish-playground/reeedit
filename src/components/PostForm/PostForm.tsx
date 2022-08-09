@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+// import { useDispatch, useSelector } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 
 import { postAdded } from '../../features/posts/postsSlice'
 import { selectAllUsers } from '../../features/users/usersSlice'
@@ -15,13 +16,13 @@ import {
 } from '@chakra-ui/react'
 
 const PostForm = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [userId, setUserId] = useState('')
 
-  const users = useSelector(selectAllUsers)
+  const users = useAppSelector(selectAllUsers)
 
   const onTitleChanged = (event: {
     target: { value: React.SetStateAction<string> }

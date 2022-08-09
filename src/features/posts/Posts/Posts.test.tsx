@@ -1,6 +1,7 @@
-import { render } from '@testing-library/react'
+// import { render } from '@testing-library/react'
+import { renderWithProviders } from '../../../test-utils'
 import Posts from './Posts'
 
 it('renders without crashing', () => {
-  render(<Posts />)
+  renderWithProviders(<Posts />)
 })

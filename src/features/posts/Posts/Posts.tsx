@@ -1,5 +1,6 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../../store/hooks'
 import { selectAllPosts } from '../postsSlice'
 import Post from '../../../components/Post/Post'
 import PostForm from '../../../components/PostForm/PostForm'
@@ -7,7 +8,7 @@ import PostForm from '../../../components/PostForm/PostForm'
 import { VStack } from '@chakra-ui/react'
 
 const Posts = () => {
-  const posts = useSelector(selectAllPosts)
+  const posts = useAppSelector(selectAllPosts)
 
   return (
     <VStack alignItems="flex-start">
