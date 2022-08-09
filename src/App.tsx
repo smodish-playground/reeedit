@@ -1,9 +1,8 @@
 import { Container, Grid, GridItem } from '@chakra-ui/react'
-import Navbar from '../components/Navbar/Navbar'
-import Posts from '../components/Posts/Posts'
-import Topics from '../components/Topics/Topics'
-import PostDetail from '../components/PostDetail/PostDetail'
-import Footer from '../components/Footer/Footer'
+import Navbar from './components/Navbar/Navbar'
+import Posts from './features/posts/Posts/Posts'
+import Topics from './components/Topics/Topics'
+import Footer from './components/Footer/Footer'
 
 function App() {
   return (
@@ -24,7 +23,6 @@ function App() {
         <GridItem area={'main'}>
           {/* Router goes here */}
           <Posts />
-          <PostDetail />
         </GridItem>
         <GridItem area={'footer'}>
           <Footer />
