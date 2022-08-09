@@ -11,6 +11,7 @@ import {
   Tag,
 } from '@chakra-ui/react'
 import PostAuthor from '../PostAuthor/PostAuthor'
+import RelativeDate from '../RelativeDate/RelativeDate'
 import { IPost } from './Post.interface'
 
 const Post = (props: IPost) => {
@@ -30,7 +31,9 @@ const Post = (props: IPost) => {
       <Box>
         <PostAuthor userId={props.createdBy} />
         <Tag size="md" borderRadius="full">
-          <TagLabel>{props.createdAt}</TagLabel>
+          <TagLabel>
+            <RelativeDate timestamp={props.createdAt} />
+          </TagLabel>
         </Tag>
       </Box>
       <Text noOfLines={3} size="md">
