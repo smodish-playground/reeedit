@@ -20,6 +20,10 @@ export const postsSlice = createSlice({
             topics: ['from redux prepare'],
             createdAt: Date.now(),
             createdBy: userId,
+            votes: {
+              up: 0,
+              down: 0,
+            },
           },
         }
       },
@@ -28,27 +32,24 @@ export const postsSlice = createSlice({
         state.push(action.payload)
       },
     },
-    setPosts: (state) => {
-      // fetch posts
-      return state
+    upVoteAdded(state, action) {
+      const { postId } = action.payload
+      const existingPost = state.find((post) => post.id === postId)
+      if (existingPost) {
+        existingPost.votes.up++
+      }
     },
-    setCurrentPost: (state, action) => {
-      // fetch one post
-      return state
-    },
-    updatedPost: (state, action) => {
-      // update a post
-      return state
-    },
-    deletedPost: (state, action) => {
-      // deletes one post
-      return state
+    downVoteAdded(state, action) {
+      const { postId } = action.payload
+      const existingPost = state.find((post) => post.id === postId)
+      if (existingPost) {
+        existingPost.votes.down++
+      }
     },
   },
 })
 
-export const { setPosts, setCurrentPost, postAdded, updatedPost, deletedPost } =
-  postsSlice.actions
+export const { postAdded, upVoteAdded, downVoteAdded } = postsSlice.actions
 
 export const selectAllPosts = (state: { posts: IPost[] }) => state.posts
 

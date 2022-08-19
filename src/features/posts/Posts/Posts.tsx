@@ -10,10 +10,12 @@ import { VStack } from '@chakra-ui/react'
 const Posts = () => {
   const posts = useAppSelector(selectAllPosts)
 
+  const orderPosts = posts.slice().sort((a, b) => b.createdAt - a.createdAt)
+
   return (
     <VStack alignItems="flex-start">
       <PostForm />
-      {posts.map((post) => (
+      {orderPosts.map((post) => (
         <Post key={post.id} {...post} />
       ))}
     </VStack>

@@ -12,6 +12,7 @@ it('renders without crashing', () => {
     createdAt: Date.now(),
     topics: ['development', 'css'],
     createdBy: 'userId1',
+    votes: { up: 35, down: 18 },
   }
 
   renderWithProviders(<Post {...mockPost} />)

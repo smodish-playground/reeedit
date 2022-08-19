@@ -15,7 +15,7 @@ const PostAuthor = (props: { userId: string }) => {
   // < span > by { author ?author.name: 'Unknown Author'}</span>
 
   return (
-    <Tag size="md" borderRadius="full">
+    <Tag borderRadius="full" width="fit-content" py="2" px="4">
       {/* eventually will be link to profile pic */}
       <Avatar name={author.name} size="xs" mr="2" />
       <TagLabel>{author.name}</TagLabel>
