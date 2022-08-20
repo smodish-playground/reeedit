@@ -14,11 +14,12 @@ import {
 import PostAuthor from '../PostAuthor/PostAuthor'
 import RelativeDate from '../RelativeDate/RelativeDate'
 import { IPost } from './Post.interface'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '../../store/hooks'
 import { upVoteAdded, downVoteAdded } from '../../features/posts/postsSlice'
 
 const Post = (props: IPost) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   return (
     <Box

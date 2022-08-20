@@ -36,7 +36,7 @@ const PostForm = () => {
 
   const onSavePostClicked = () => {
     if (title && content) {
-      dispatch(postAdded(title, content, userId))
+      dispatch(postAdded({ title: title, content: content, userId: userId }))
       setTitle('')
       setContent('')
       setUserId('')
