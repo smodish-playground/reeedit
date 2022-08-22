@@ -2,6 +2,8 @@
 
 ## Welcome!
 
+To run locally - after cloning and installing, `npm run dev` starts both the react app on port 3000 and json server on port 9000
+
 ### Front end tech stack:
 
 React v.18, React Router, Redux Toolkit, ChakraUI
