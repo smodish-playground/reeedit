@@ -14,7 +14,7 @@ import {
 import PostAuthor from '../PostAuthor/PostAuthor'
 import RelativeDate from '../RelativeDate/RelativeDate'
 import { IPost } from './Post.interface'
-// import { useDispatch } from 'react-redux'
+
 import { useAppDispatch } from '../../store/hooks'
 import { upVoteAdded, downVoteAdded } from '../../features/posts/postsSlice'
 
@@ -58,7 +58,7 @@ const Post = (props: IPost) => {
             </TagLabel>
           </Tag>
           <Text noOfLines={3} size="md">
-            {props.content}
+            {props.body}
           </Text>
           <Box>
             <ButtonGroup>

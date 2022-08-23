@@ -1,7 +1,7 @@
 export interface IPost {
   id: string
   title: string
-  content: string
+  body: string
   createdAt: number
   createdBy: string
   topics: string[]
