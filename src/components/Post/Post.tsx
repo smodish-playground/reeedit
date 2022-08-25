@@ -13,13 +13,21 @@ import {
 } from '@chakra-ui/react'
 import PostAuthor from '../PostAuthor/PostAuthor'
 import RelativeDate from '../RelativeDate/RelativeDate'
-import { IPost } from './Post.interface'
+import { PostInterface } from './Post.interface'
 
 import { useAppDispatch } from '../../store/hooks'
 import { upVoteAdded, downVoteAdded } from '../../features/posts/postsSlice'
 
-const Post = (props: IPost) => {
+const Post = (props: PostInterface) => {
   const dispatch = useAppDispatch()
+
+  console.log(props)
+
+  const { id, votes, title, createdBy, createdAt, body, topics } = props
+
+  if (!id) {
+    return <h1>Loading...</h1>
+  }
 
   return (
     <Box
@@ -33,36 +41,36 @@ const Post = (props: IPost) => {
     >
       <HStack>
         <VStack>
-          <Button onClick={() => dispatch(upVoteAdded({ postId: props.id }))}>
-            Up {props.votes.up}
+          <Button onClick={() => dispatch(upVoteAdded({ postId: id }))}>
+            Up {votes.up}
           </Button>
-          <Button onClick={() => dispatch(downVoteAdded({ postId: props.id }))}>
-            Down {props.votes.down}
+          <Button onClick={() => dispatch(downVoteAdded({ postId: id }))}>
+            Down {votes.down}
           </Button>
         </VStack>
 
         <VStack align="left">
           <HStack justifyContent="space-between">
             <Heading as="h2" size="md">
-              {props.title}
+              {title}
             </Heading>
             <ButtonGroup>
               <Button>Edit</Button>
               <Button>Delete</Button>
             </ButtonGroup>
           </HStack>
-          <PostAuthor userId={props.createdBy} />
+          <PostAuthor userId={createdBy} />
           <Tag borderRadius="full" w="max-content" px="3" py="1">
             <TagLabel>
-              <RelativeDate timestamp={props.createdAt} />
+              <RelativeDate timestamp={createdAt} />
             </TagLabel>
           </Tag>
           <Text noOfLines={3} size="md">
-            {props.body}
+            {body}
           </Text>
           <Box>
             <ButtonGroup>
-              {props.topics.map((topic) => (
+              {topics.map((topic) => (
                 <Button
                   size="xs"
                   colorScheme="black"

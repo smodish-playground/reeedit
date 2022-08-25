@@ -1,10 +1,10 @@
 import { RootState } from './../../store/store'
-import { IPost } from './../../components/Post/Post.interface'
+import { PostInterface } from './../../components/Post/Post.interface'
 import axios from 'axios'
 import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit'
 
 interface PostsSliceState {
-  posts: IPost[]
+  posts: PostInterface[]
   status: string
   error: any
 }
@@ -32,11 +32,18 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   }
 })
 
-export const addNewPost = createAsyncThunk<IPost, InitialPost>(
+export const addNewPost = createAsyncThunk<PostInterface, InitialPost>(
   'posts/addNewPost',
   async (initialPost, thunkApi) => {
     try {
-      const response = await axios.post(POSTS_URL, initialPost)
+      const newPost = {
+        ...initialPost,
+        id: nanoid(),
+        topics: ['from redux thunk'],
+        createdAt: Date.now(),
+        votes: { up: 0, down: 0 },
+      }
+      const response = await axios.post(POSTS_URL, newPost)
       return response.data
     } catch (err: any) {
       return err.message
@@ -49,7 +56,7 @@ export const postsSlice = createSlice({
   initialState,
   reducers: {
     postAdded: {
-      prepare: (post: IPost): any => {
+      prepare: (post: PostInterface): any => {
         return {
           payload: {
             id: nanoid(),
@@ -99,11 +106,6 @@ export const postsSlice = createSlice({
         state.error = action.payload
       })
       .addCase(addNewPost.fulfilled, (state, action) => {
-        action.payload.id = nanoid()
-        action.payload.topics = ['from redux thunk']
-        action.payload.createdAt = Date.now()
-        action.payload.votes = { up: 0, down: 0 }
-
         console.log(action.payload)
         state.posts.push(action.payload)
       })

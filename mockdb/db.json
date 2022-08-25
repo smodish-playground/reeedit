@@ -3,12 +3,8 @@
     {
       "id": "jXI_oh1UDHM7If-zDvytk",
       "title": "This isn't really even a post",
-      "topics": [
-        "posting",
-        "fake post",
-        "other stuff"
-      ],
-      "content": "We really should talk about posting",
+      "topics": ["posting", "fake post", "other stuff"],
+      "body": "We really should talk about posting",
       "createdBy": "firsty",
       "createdAt": 1659975419664,
       "votes": {
@@ -19,12 +15,8 @@
     {
       "id": "QPichBrG9QGBu3RAc7ipx",
       "title": "This isn't really even a post either",
-      "topics": [
-        "fake post",
-        "other stuff",
-        "copying"
-      ],
-      "content": "We really should talk about posting and commenting",
+      "topics": ["fake post", "other stuff", "copying"],
+      "body": "We really should talk about posting and commenting",
       "createdBy": "secondly",
       "createdAt": 1659975619664,
       "votes": {
@@ -33,10 +25,16 @@
       }
     },
     {
-      "title": "generate a new id",
-      "body": "ndghcndghnf",
-      "createdBy": "0",
-      "id": "30pL6Qo"
+      "title": "new post",
+      "body": "new posts rule!",
+      "createdBy": "2",
+      "id": "2ADUhRNespgqzbN5bNXmI",
+      "topics": ["from redux thunk"],
+      "createdAt": 1661439390747,
+      "votes": {
+        "up": 0,
+        "down": 0
+      }
     }
   ]
 }
