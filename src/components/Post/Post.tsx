@@ -21,8 +21,6 @@ import { upVoteAdded, downVoteAdded } from '../../features/posts/postsSlice'
 const Post = (props: PostInterface) => {
   const dispatch = useAppDispatch()
 
-  console.log(props)
-
   const { id, votes, title, createdBy, createdAt, body, topics } = props
 
   if (!id) {
