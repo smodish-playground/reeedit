@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Link } from 'react-router-dom'
+
 import {
   Box,
   VStack,
@@ -46,41 +48,42 @@ const Post = (props: PostInterface) => {
             Down {votes.down}
           </Button>
         </VStack>
-
-        <VStack align="left">
-          <HStack justifyContent="space-between">
-            <Heading as="h2" size="md">
-              {title}
-            </Heading>
-            <ButtonGroup>
-              <Button>Edit</Button>
-              <Button>Delete</Button>
-            </ButtonGroup>
-          </HStack>
-          <PostAuthor userId={createdBy} />
-          <Tag borderRadius="full" w="max-content" px="3" py="1">
-            <TagLabel>
-              <RelativeDate timestamp={createdAt} />
-            </TagLabel>
-          </Tag>
-          <Text noOfLines={3} size="md">
-            {body}
-          </Text>
-          <Box>
-            <ButtonGroup>
-              {topics.map((topic) => (
-                <Button
-                  size="xs"
-                  colorScheme="black"
-                  key={topic}
-                  variant="outline"
-                >
-                  {topic}
-                </Button>
-              ))}
-            </ButtonGroup>
-          </Box>
-        </VStack>
+        <Link to={`post/${id}`}>
+          <VStack align="left">
+            <HStack justifyContent="space-between">
+              <Heading as="h2" size="md">
+                {title}
+              </Heading>
+              <ButtonGroup>
+                <Button>Edit</Button>
+                <Button>Delete</Button>
+              </ButtonGroup>
+            </HStack>
+            <PostAuthor userId={createdBy} />
+            <Tag borderRadius="full" w="max-content" px="3" py="1">
+              <TagLabel>
+                <RelativeDate timestamp={createdAt} />
+              </TagLabel>
+            </Tag>
+            <Text noOfLines={1} size="md">
+              {body}
+            </Text>
+            <Box>
+              <ButtonGroup>
+                {topics.map((topic) => (
+                  <Button
+                    size="xs"
+                    colorScheme="black"
+                    key={topic}
+                    variant="outline"
+                  >
+                    {topic}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            </Box>
+          </VStack>
+        </Link>
       </HStack>
     </Box>
   )

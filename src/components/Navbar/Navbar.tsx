@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom'
+
 import {
   HStack,
-  Button,
   Heading,
   useColorMode,
   Avatar,
@@ -24,9 +25,9 @@ const Navbar = () => {
       h="100%"
       px="5"
     >
-      <Button variant="ghost">
+      <Link to="/">
         <Heading color={'whiteAlpha.800'}>Reeedit</Heading>
-      </Button>
+      </Link>
       <HStack justifyContent="space-evenly" alignItems="center" spacing="6">
         {colorMode === 'light' ? (
           <MoonIcon
