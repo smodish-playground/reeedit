@@ -1,23 +1,6 @@
 {
   "posts": [
     {
-      "id": "QPichBrG9QGBu3RAc7ipx",
-      "title": "This has been updated by the front end",
-      "topics": [
-        "fake post",
-        "other stuff",
-        "copying"
-      ],
-      "body": "Working out issues",
-      "createdBy": "0",
-      "createdAt": 1659975619664,
-      "votes": {
-        "up": 5,
-        "down": 28
-      },
-      "lastUpdated": 1661552589326
-    },
-    {
       "title": "new post",
       "body": "new posts rule!\nEditing posts is even better!",
       "createdBy": "2",
