@@ -1,81 +1,95 @@
 import React from 'react'
 
+import { Link } from 'react-router-dom'
+
 import {
   Box,
-  VStack,
   Heading,
   Text,
   Button,
   ButtonGroup,
   TagLabel,
   Tag,
-  HStack,
+  Flex,
+  Spacer,
 } from '@chakra-ui/react'
+
 import PostAuthor from '../PostAuthor/PostAuthor'
 import RelativeDate from '../RelativeDate/RelativeDate'
-import { IPost } from './Post.interface'
+import Votes from '../Votes/Votes'
 
-import { useAppDispatch } from '../../store/hooks'
-import { upVoteAdded, downVoteAdded } from '../../features/posts/postsSlice'
+import { PostInterface } from './Post.interface'
 
-const Post = (props: IPost) => {
-  const dispatch = useAppDispatch()
+const Post = (props: PostInterface) => {
+  const { id, votes, title, createdBy, createdAt, lastUpdated, body, topics } =
+    props
+
+  if (!id) {
+    return <h1>Loading...</h1>
+  }
 
   return (
     <Box
       as="article"
       rounded="md"
-      p="5"
+      p="3"
       boxShadow="sm"
       border="1px"
       borderColor="gray.200"
-      width="6xl"
+      w="full"
     >
-      <HStack>
-        <VStack>
-          <Button onClick={() => dispatch(upVoteAdded({ postId: props.id }))}>
-            Up {props.votes.up}
-          </Button>
-          <Button onClick={() => dispatch(downVoteAdded({ postId: props.id }))}>
-            Down {props.votes.down}
-          </Button>
-        </VStack>
-
-        <VStack align="left">
-          <HStack justifyContent="space-between">
-            <Heading as="h2" size="md">
-              {props.title}
-            </Heading>
-            <ButtonGroup>
+      <Flex direction="row" gap="3">
+        <Votes id={id} votes={votes} />
+        <Flex direction="column" align="left" w="full">
+          <Flex direction="row">
+            <Link to={`post/${id}`}>
+              <Heading as="h2" size="md">
+                {title}
+              </Heading>
+            </Link>
+            <Spacer />
+            <Link to={`/post/edit/${id}`}>
               <Button>Edit</Button>
-              <Button>Delete</Button>
-            </ButtonGroup>
-          </HStack>
-          <PostAuthor userId={props.createdBy} />
-          <Tag borderRadius="full" w="max-content" px="3" py="1">
-            <TagLabel>
-              <RelativeDate timestamp={props.createdAt} />
-            </TagLabel>
-          </Tag>
-          <Text noOfLines={3} size="md">
-            {props.body}
-          </Text>
-          <Box>
-            <ButtonGroup>
-              {props.topics.map((topic) => (
-                <Button
-                  size="xs"
-                  colorScheme="black"
-                  key={topic}
-                  variant="outline"
-                >
-                  {topic}
-                </Button>
-              ))}
-            </ButtonGroup>
-          </Box>
-        </VStack>
-      </HStack>
+            </Link>
+          </Flex>
+          <Flex direction="column" gap="2">
+            <PostAuthor userId={createdBy} />
+            <Tag borderRadius="full" w="max-content" px="3" py="1">
+              <TagLabel>
+                <Flex gap="2">
+                  <div>
+                    Updated:
+                    <RelativeDate timestamp={lastUpdated} />
+                  </div>
+                  <div>
+                    Posted:
+                    <RelativeDate timestamp={createdAt} />
+                  </div>
+                </Flex>
+              </TagLabel>
+            </Tag>
+            <Link to={`post/${id}`}>
+              <Text noOfLines={1} size="md">
+                {body}
+              </Text>
+            </Link>
+            <Box>
+              <ButtonGroup>
+                {topics.map((topic) => (
+                  <Button
+                    size="xs"
+                    colorScheme="black"
+                    key={topic}
+                    variant="outline"
+                  >
+                    {topic}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            </Box>
+          </Flex>
+        </Flex>
+      </Flex>
     </Box>
   )
 }

@@ -1,25 +1,25 @@
 import React, { useState } from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 
 import { addNewPost } from '../../features/posts/postsSlice'
 import { selectAllUsers } from '../../features/users/usersSlice'
 
 import {
+  Heading,
   FormControl,
   FormLabel,
   Input,
   Select,
   Button,
   Textarea,
-  Box,
+  Flex,
 } from '@chakra-ui/react'
 
 const PostForm = () => {
   const dispatch = useAppDispatch()
 
   const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
+  const [body, setBody] = useState('')
   const [userId, setUserId] = useState('')
   const [addRequestStatus, setAddRequestStatus] = useState('idle')
 
@@ -28,25 +28,23 @@ const PostForm = () => {
   const onTitleChanged = (event: {
     target: { value: React.SetStateAction<string> }
   }) => setTitle(event.target.value)
-  const onContentChanged = (event: {
+  const onBodyChanged = (event: {
     target: { value: React.SetStateAction<string> }
-  }) => setContent(event.target.value)
+  }) => setBody(event.target.value)
   const onAuthorChanged = (event: {
     target: { value: React.SetStateAction<string> }
   }) => setUserId(event.target.value)
 
   const canSave =
-    [title, content, userId].every(Boolean) && addRequestStatus === 'idle'
+    [title, body, userId].every(Boolean) && addRequestStatus === 'idle'
 
   const onSavePostClicked = () => {
     if (canSave) {
       try {
         setAddRequestStatus('pending')
-        dispatch(
-          addNewPost({ title, body: content, createdBy: userId })
-        ).unwrap()
+        dispatch(addNewPost({ title, body, createdBy: userId })).unwrap()
         setTitle('')
-        setContent('')
+        setBody('')
         setUserId('')
       } catch (err) {
         console.error('Failed to save the post', err)
@@ -63,8 +61,8 @@ const PostForm = () => {
   ))
 
   return (
-    <Box>
-      <h2>Add a new post</h2>
+    <Flex w="full" direction="column" gap="2" mb="4">
+      <Heading as="h2">Add a new post</Heading>
       <FormControl>
         <FormLabel>Author:</FormLabel>
         <Select id="postAuthor" value={userId} onChange={onAuthorChanged}>
@@ -82,18 +80,18 @@ const PostForm = () => {
         />
       </FormControl>
       <FormControl>
-        <FormLabel htmlFor="postContent">Content:</FormLabel>
+        <FormLabel htmlFor="postBody">Body:</FormLabel>
         <Textarea
-          id="postContent"
-          name="postContent"
-          value={content}
-          onChange={onContentChanged}
+          id="postBody"
+          name="postBody"
+          value={body}
+          onChange={onBodyChanged}
         />
       </FormControl>
       <Button type="button" onClick={onSavePostClicked} disabled={!canSave}>
         Save Post
       </Button>
-    </Box>
+    </Flex>
   )
 }
 

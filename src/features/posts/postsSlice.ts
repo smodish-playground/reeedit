@@ -1,10 +1,10 @@
 import { RootState } from './../../store/store'
-import { IPost } from './../../components/Post/Post.interface'
+import { PostInterface } from './../../components/Post/Post.interface'
 import axios from 'axios'
 import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit'
 
 interface PostsSliceState {
-  posts: IPost[]
+  posts: PostInterface[]
   status: string
   error: any
 }
@@ -32,12 +32,47 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   }
 })
 
-export const addNewPost = createAsyncThunk<IPost, InitialPost>(
+export const addNewPost = createAsyncThunk<PostInterface, InitialPost>(
   'posts/addNewPost',
   async (initialPost, thunkApi) => {
     try {
-      const response = await axios.post(POSTS_URL, initialPost)
+      const newPost = {
+        ...initialPost,
+        id: nanoid(),
+        topics: ['from redux thunk'],
+        createdAt: Date.now(),
+        lastUpdated: Date.now(),
+        votes: { up: 0, down: 0 },
+      }
+      const response = await axios.post(POSTS_URL, newPost)
       return response.data
+    } catch (err: any) {
+      return err.message
+    }
+  }
+)
+
+export const updatePost = createAsyncThunk<PostInterface, PostInterface>(
+  'posts/updatePost',
+  async (updatedPost, thunkApi) => {
+    const { id } = updatedPost
+    try {
+      const response = await axios.put(`${POSTS_URL}/${id}`, updatedPost)
+      return response.data
+    } catch (err: any) {
+      return err.message
+    }
+  }
+)
+
+export const deletePost = createAsyncThunk<PostInterface, { id: string }>(
+  'posts/deletePost',
+  async (postId: { id: string }) => {
+    const { id } = postId
+    try {
+      const response = await axios.delete(`${POSTS_URL}/${id}`)
+      if (response?.status === 200) return postId
+      return `${response?.status}: ${response?.statusText}`
     } catch (err: any) {
       return err.message
     }
@@ -48,28 +83,6 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    postAdded: {
-      prepare: (post: IPost): any => {
-        return {
-          payload: {
-            id: nanoid(),
-            title: post.title,
-            body: post.body,
-            createdBy: post.createdBy,
-            createdAt: Date.now(),
-            topics: ['from redux prepare'],
-            votes: {
-              up: 0,
-              down: 0,
-            },
-          },
-        }
-      },
-      reducer: (state, action) => {
-        // add a post to state
-        state.posts.push(action.payload)
-      },
-    },
     upVoteAdded(state, action) {
       const postId = action.payload
       const existingPost = state.posts.find((post) => post.id === postId)
@@ -99,20 +112,41 @@ export const postsSlice = createSlice({
         state.error = action.payload
       })
       .addCase(addNewPost.fulfilled, (state, action) => {
-        action.payload.id = nanoid()
-        action.payload.topics = ['from redux thunk']
-        action.payload.createdAt = Date.now()
-        action.payload.votes = { up: 0, down: 0 }
-
         console.log(action.payload)
         state.posts.push(action.payload)
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
+        if (!action.payload?.id) {
+          console.log('Update failed.')
+          console.log(action.payload)
+          return
+        }
+
+        const { id } = action.payload
+        console.log('Successfully updated DB')
+        console.log(action.payload)
+
+        const posts = state.posts.filter((post) => post.id !== id)
+        state.posts = [...posts, action.payload]
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        if (!action.payload?.id) {
+          console.log('Could not delete')
+          console.log(action.payload)
+          return
+        }
+        const { id } = action.payload
+        const posts = state.posts.filter((post) => post.id !== id)
+        state.posts = posts
       })
   },
 })
 
-export const { postAdded, upVoteAdded, downVoteAdded } = postsSlice.actions
+export const { upVoteAdded, downVoteAdded } = postsSlice.actions
 
 export const selectAllPosts = (state: RootState) => state.posts.posts
+export const selectPostById = (state: RootState, postId: string) =>
+  state.posts.posts.find((post) => post.id === postId)
 export const getPostsStatus = (state: RootState) => state.posts.status
 export const getPostsError = (state: RootState) => state.posts.error
 
