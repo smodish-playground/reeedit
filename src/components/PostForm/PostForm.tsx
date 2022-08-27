@@ -5,13 +5,14 @@ import { addNewPost } from '../../features/posts/postsSlice'
 import { selectAllUsers } from '../../features/users/usersSlice'
 
 import {
+  Heading,
   FormControl,
   FormLabel,
   Input,
   Select,
   Button,
   Textarea,
-  Box,
+  Flex,
 } from '@chakra-ui/react'
 
 const PostForm = () => {
@@ -60,8 +61,8 @@ const PostForm = () => {
   ))
 
   return (
-    <Box>
-      <h2>Add a new post</h2>
+    <Flex w="full" direction="column" gap="2" mb="4">
+      <Heading as="h2">Add a new post</Heading>
       <FormControl>
         <FormLabel>Author:</FormLabel>
         <Select id="postAuthor" value={userId} onChange={onAuthorChanged}>
@@ -90,7 +91,7 @@ const PostForm = () => {
       <Button type="button" onClick={onSavePostClicked} disabled={!canSave}>
         Save Post
       </Button>
-    </Box>
+    </Flex>
   )
 }
 

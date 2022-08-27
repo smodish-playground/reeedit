@@ -22,8 +22,9 @@ import { useAppDispatch } from '../../store/hooks'
 import { upVoteAdded, downVoteAdded } from '../../features/posts/postsSlice'
 
 const PostDetail = () => {
-  const dispatch = useAppDispatch()
   const { postId } = useParams()
+  const dispatch = useAppDispatch()
+
   const post = useSelector((state: RootState) =>
     selectPostById(state, String(postId))
   )
@@ -51,7 +52,9 @@ const PostDetail = () => {
               {title}
             </Heading>
             <ButtonGroup>
-              <Button>Edit</Button>
+              <Link to={`/post/edit/${post.id}`}>
+                <Button>Edit</Button>
+              </Link>
               <Button>Delete</Button>
             </ButtonGroup>
           </HStack>

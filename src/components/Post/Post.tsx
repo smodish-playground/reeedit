@@ -4,26 +4,25 @@ import { Link } from 'react-router-dom'
 
 import {
   Box,
-  VStack,
   Heading,
   Text,
   Button,
   ButtonGroup,
   TagLabel,
   Tag,
-  HStack,
+  Flex,
+  Spacer,
 } from '@chakra-ui/react'
+
 import PostAuthor from '../PostAuthor/PostAuthor'
 import RelativeDate from '../RelativeDate/RelativeDate'
+import Votes from '../Votes/Votes'
+
 import { PostInterface } from './Post.interface'
 
-import { useAppDispatch } from '../../store/hooks'
-import { upVoteAdded, downVoteAdded } from '../../features/posts/postsSlice'
-
 const Post = (props: PostInterface) => {
-  const dispatch = useAppDispatch()
-
-  const { id, votes, title, createdBy, createdAt, body, topics } = props
+  const { id, votes, title, createdBy, createdAt, lastUpdated, body, topics } =
+    props
 
   if (!id) {
     return <h1>Loading...</h1>
@@ -33,41 +32,47 @@ const Post = (props: PostInterface) => {
     <Box
       as="article"
       rounded="md"
-      p="5"
+      p="3"
       boxShadow="sm"
       border="1px"
       borderColor="gray.200"
-      width="6xl"
+      w="full"
     >
-      <HStack>
-        <VStack>
-          <Button onClick={() => dispatch(upVoteAdded({ postId: id }))}>
-            Up {votes.up}
-          </Button>
-          <Button onClick={() => dispatch(downVoteAdded({ postId: id }))}>
-            Down {votes.down}
-          </Button>
-        </VStack>
-        <Link to={`post/${id}`}>
-          <VStack align="left">
-            <HStack justifyContent="space-between">
+      <Flex direction="row" gap="3">
+        <Votes id={id} votes={votes} />
+        <Flex direction="column" align="left" w="full">
+          <Flex direction="row">
+            <Link to={`post/${id}`}>
               <Heading as="h2" size="md">
                 {title}
               </Heading>
-              <ButtonGroup>
-                <Button>Edit</Button>
-                <Button>Delete</Button>
-              </ButtonGroup>
-            </HStack>
+            </Link>
+            <Spacer />
+            <Link to={`/post/edit/${id}`}>
+              <Button>Edit</Button>
+            </Link>
+          </Flex>
+          <Flex direction="column" gap="2">
             <PostAuthor userId={createdBy} />
             <Tag borderRadius="full" w="max-content" px="3" py="1">
               <TagLabel>
-                <RelativeDate timestamp={createdAt} />
+                <Flex gap="2">
+                  <div>
+                    Updated:
+                    <RelativeDate timestamp={lastUpdated} />
+                  </div>
+                  <div>
+                    Posted:
+                    <RelativeDate timestamp={createdAt} />
+                  </div>
+                </Flex>
               </TagLabel>
             </Tag>
-            <Text noOfLines={1} size="md">
-              {body}
-            </Text>
+            <Link to={`post/${id}`}>
+              <Text noOfLines={1} size="md">
+                {body}
+              </Text>
+            </Link>
             <Box>
               <ButtonGroup>
                 {topics.map((topic) => (
@@ -82,9 +87,9 @@ const Post = (props: PostInterface) => {
                 ))}
               </ButtonGroup>
             </Box>
-          </VStack>
-        </Link>
-      </HStack>
+          </Flex>
+        </Flex>
+      </Flex>
     </Box>
   )
 }

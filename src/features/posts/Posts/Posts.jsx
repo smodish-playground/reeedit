@@ -24,7 +24,7 @@ const Posts = () => {
     }
   })
 
-  const orderPosts = posts.slice().sort((a, b) => b.createdAt - a.createdAt)
+  const orderPosts = posts.slice().sort((a, b) => b.lastUpdated - a.lastUpdated)
 
   if (error) {
     return <>{error}</>
