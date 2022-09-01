@@ -84,14 +84,15 @@ export const postsSlice = createSlice({
   initialState,
   reducers: {
     upVoteAdded(state, action) {
-      const postId = action.payload
+      const { postId } = action.payload
       const existingPost = state.posts.find((post) => post.id === postId)
       if (existingPost) {
         existingPost.votes.up++
       }
     },
     downVoteAdded(state, action) {
-      const postId = action.payload
+      console.log(action)
+      const { postId } = action.payload
       const existingPost = state.posts.find((post) => post.id === postId)
       if (existingPost) {
         existingPost.votes.down++
